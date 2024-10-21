@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div id="sidebar" class='active' th:fragment="sidebar">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <a th:href="@{/}"><img th:src="@{/images/logo.png}"></a>
+
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+
+                <li class='sidebar-title'>Main Menu</li>
+
+                <li class="sidebar-item active ">
+                    <a th:href="@{/}" class='sidebar-link'>
+                        <i data-feather="grid" width="20"></i>
+                        <span>Dashboard</span>
+                    </a>
+
+                </li>
+
+
+                <li class="sidebar-item  has-sub" sec:authorize="hasAuthority('Admin')">
+
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="triangle" width="20"></i>
+                        <span>Authentication</span>
+                    </a>
+
+
+                    <ul class="submenu ">
+
+                        <li>
+                            <a th:href="@{/users}">Manage Users</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    </div>
+
+</div>
+</body>
+</html>

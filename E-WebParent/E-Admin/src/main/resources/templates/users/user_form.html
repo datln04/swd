@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
+<body>
+    <div id="app">
+       <span th:replace="sidebar :: sidebar"></span>
+        <div id="main">
+            <span th:replace="header :: header"></span>
+            
+<div class="main-content container-fluid">
+     <span th:replace="locale :: locate"></span>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h3>Manage Users | [[${pageTitle}]]</h3>
+            </div>
+           
+                
+                    <form th:action="@{/users/save}" method="post" enctype="multipart/form-data"
+                    	 th:object="${user}" onsubmit="return checkEmailUnique(this);">
+                    <input type="hidden" th:field="*{id}" />
+                 <div class="card-body">
+                        <div class="row">
+                        
+                        	 <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="email-id-column">Email</label>
+                                    <input type="email" class="form-control" th:field="*{email}" required minlength="8" maxlength="128">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="first-name-column">First Name</label>
+                                    <input type="text" th:field="*{firstName}" required minlength="2" maxlength="45" class="form-control"  name="fname-column">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="last-name-column">Last Name</label>
+                                    <input type="text" class="form-control"  name="lname-column" th:field="*{lastName}" required minlength="2" maxlength="45">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="username-column">Password</label>                            
+                                    <input th:if="${user.id == null}" type="password" class="form-control" 
+									th:field="*{password}" required minlength="8" maxlength="20"  />
+				
+								   <input th:if="${user.id != null}" type="password" class="form-control" 
+									th:field="*{password}" minlength="8" maxlength="20"  />	
+                                </div>
+                            </div>
+                            
+                           
+                             <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="username-column">Status</label>                            
+                                    <input type="checkbox" th:field="*{enabled}" />
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="username-column">Photos</label> 
+                                    <input type="hidden" th:field="*{photos}" />                           
+                                    <input type="file" name="image" id="fileImage" accept="image/png, image/jpeg, image/jpg"/>
+                                    <img id='thumbnail' alt="Image preview" th:src="@{${user.photosImagePath}}" class="img-fluid" style="height: 150px;">
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="username-column">Roles</label>   <br>                        
+                                    <th:block th:each="role : ${listRoles}">
+							<input type="checkbox" th:field="*{roles}" 
+								th:text="${role.name}"
+								th:value="${role.id}"
+								class="m-2"
+								/>
+							- <small>[[${role.description}]]</small>
+								<br/>
+						</th:block>
+                                </div>
+                            </div>
+                           
+                        </diV>
+
+                                
+                        <div class="clearfix">
+                       		<div class="text-center">
+								<input type="submit" value="Submit" class="btn btn-primary m-3"  />
+								<input type="button" value="Cancel" class="btn btn-danger" id="buttonCancel" />
+							</div>     
+                        </div>
+                         </div>
+                    </form>
+                    
+                   <div th:replace="modal_fragments :: modal_dialog"></div>   
+           
+        </div>
+
+    </section>
+</div>
+
+<span th:replace="footer:: footer"></span>
+        </div>
+    </div>
+    
+<script type="text/javascript">
+MAX_FILE_SIZE = 102400; // 100KB
+
+moduleURL = "[[@{/users}]]";
+
+function checkEmailUnique(form) {
+	url = "[[@{/users/check_email}]]";
+	userEmail = $("#email").val();
+	userId = $("#id").val();
+	csrfValue = $("input[name='_csrf']").val();
+	
+	params = {id: userId, email: userEmail, _csrf: csrfValue};
+	
+	$.post(url, params, function(response) {
+		if (response == "OK") {
+			form.submit();
+		} else if (response == "Duplicated") {
+			showWarningModal("There is another user having the email " + userEmail);
+		} else {
+			showErrorModal("Unknown response from server");
+		}
+	}).fail(function() {
+		showErrorModal("Could not connect to the server");
+	});
+	
+	return false;
+}
+	
+	
+</script>
+	<script th:src="@{/js/common_form.js}"></script>
+    <script th:src="@{/js/feather-icons/feather.min.js}"></script>
+    <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+    <script th:src="@{/js/app.js}"></script>  
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>
