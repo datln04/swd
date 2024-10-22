@@ -85,12 +85,6 @@
                     <button class="nav-link active" id="nav-dscr-tab" data-bs-toggle="tab" data-bs-target="#nav-dscr"
                             type="button" role="tab" aria-controls="nav-dscr" aria-selected="true">Description
                     </button>
-                    <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info"
-                            type="button" role="tab" aria-controls="nav-info" aria-selected="false">Information
-                    </button>
-                    <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review"
-                            type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews
-                    </button>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -102,8 +96,6 @@
                 </div>
             </div>
         </div>
-        <div th:replace="product/question_answer :: content"></div>
-        <div th:replace="reviews/reviews_votes :: content"></div>
 
     </div>
 </div>

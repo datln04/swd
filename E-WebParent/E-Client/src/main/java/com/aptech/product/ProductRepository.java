@@ -34,15 +34,15 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 	public Page<Product> listByBrand(Integer brandId, Pageable pageable);	
 	
 	@Query(nativeQuery = true,
-            value = "SELECT * FROM emultivendor.products WHERE enabled= true ORDER BY id desc LIMIT 9")
+            value = "SELECT * FROM products WHERE enabled= true ORDER BY id desc LIMIT 9")
 	public List<Product> findAll();
 	
 	@Query(nativeQuery = true,
-            value = "SELECT * FROM emultivendor.products WHERE enabled= true AND discount_percent >= 50 ORDER BY id desc LIMIT 5")
+            value = "SELECT * FROM products WHERE enabled= true AND discount_percent >= 50 ORDER BY id desc LIMIT 5")
 	public List<Product> findProductBestSeller();
 	
 	@Query(nativeQuery = true,
-            value = "SELECT * FROM emultivendor.products WHERE enabled= true AND discount_percent = 25 ORDER BY id desc LIMIT 5")
+            value = "SELECT * FROM products WHERE enabled= true AND discount_percent = 25 ORDER BY id desc LIMIT 5")
 	public List<Product> findFlashDeal();
 	
 	public Product findByName(String name);

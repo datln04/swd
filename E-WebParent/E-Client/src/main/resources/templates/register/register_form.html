@@ -21,7 +21,7 @@
                         <h2>Become an Author</h2>
                         <p>There are no enrollment fees or shipping quotas. Simp vide your contact information, create a user ID and word.</p>           
                         <form th:action="@{/create_customer}" method="post" th:object="${customer}" class="login-form" 
-                        	onsubmit="return checkEmailUnique(this);">
+                        	>
                             <input class="form-control" type="text" th:field="*{firstName}" placeholder="First Name" required="required" maxlength="45" minlength="2" autofocus="autofocus">
                             
                             <input class="form-control" type="text" th:field="*{lastName}" placeholder="Last Name" required="required" maxlength="45" minlength="2" autofocus="autofocus">

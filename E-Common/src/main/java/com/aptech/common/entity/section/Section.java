@@ -48,11 +48,11 @@ public class Section extends IdBasedEntity {
 	@OrderBy("brandOrder ASC")
 	private List<BrandSection> brandSections = new ArrayList<>();
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "section_id")
-	@OrderBy("articleOrder ASC")
-	private List<ArticleSection> articleSections = new ArrayList<>();
-	
+//	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//	@JoinColumn(name = "section_id")
+//	@OrderBy("articleOrder ASC")
+//	private List<ArticleSection> articleSections = new ArrayList<>();
+//
 	public Section() {
 	}
 	
@@ -176,17 +176,17 @@ public class Section extends IdBasedEntity {
 		this.brandSections.add(brandSection);
 	}
 
-	public List<ArticleSection> getArticleSections() {
-		return articleSections;
-	}
-
-	public void setArticleSections(List<ArticleSection> articleSections) {
-		this.articleSections = articleSections;
-	}
-	
-	public void addArticleSection(ArticleSection articleSection) {
-		this.articleSections.add(articleSection);
-	}
+//	public List<ArticleSection> getArticleSections() {
+//		return articleSections;
+//	}
+//
+//	public void setArticleSections(List<ArticleSection> articleSections) {
+//		this.articleSections = articleSections;
+//	}
+//
+//	public void addArticleSection(ArticleSection articleSection) {
+//		this.articleSections.add(articleSection);
+//	}
 
 	@Override
 	public String toString() {
